@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 val YEAR = 2021
 val DAY = LocalDate.now().dayOfMonth
-val URL = "https://adventofcode.com/2021/day/$DAY/input"
+val URL = "https://adventofcode.com/$YEAR/day/$DAY/input"
 
 fun main() {
     val request = Request.Builder()
