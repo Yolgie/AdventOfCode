@@ -5,7 +5,6 @@ import org.testng.annotations.Test
 
 class ContestUtilTest {
 
-
     @Test
     fun testUpdateList() {
         val original = listOf(1,2,3,4,5,6)
