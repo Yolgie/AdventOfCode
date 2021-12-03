@@ -2,7 +2,7 @@ package at.cnoize.contest.adventOfCode2020.day01
 
 import at.cnoize.contest.util.Worker
 
-const val INPUT_FILE = "Day01.input"
+const val INPUT_FILE = "adventOfCode2021/Day01.input"
 const val SUM_TARGET = 2020
 
 fun main() {
