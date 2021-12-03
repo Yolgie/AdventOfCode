@@ -2,7 +2,7 @@ package at.cnoize.contest.adventOfCode2020.day02
 
 import at.cnoize.contest.util.Worker
 
-const val INPUT_FILE ="Day02.input"
+const val INPUT_FILE ="adventOfCode2021/Day02.input"
 const val REGEX = """^(?<from>\d+?)-(?<to>\d+?) (?<char>\w): (?<password>.*)$"""
 
 fun main() {
