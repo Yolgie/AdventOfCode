@@ -5,7 +5,11 @@ import at.cnoize.contest.util.minAndMax
 import at.cnoize.contest.util.toRange
 import java.math.BigInteger
 
-const val INPUT_FILE = "Day05.input"
+const val YEAR = 2020
+const val DAY = "05"
+
+const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)

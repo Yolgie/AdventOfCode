@@ -6,8 +6,11 @@ import at.cnoize.contest.util.second
 import at.cnoize.contest.util.takeWhileInclusive
 import java.math.BigInteger
 
-//const val INPUT_FILE = "Day13.input.test"
-const val INPUT_FILE = "Day13.input"
+const val YEAR = 2020
+const val DAY = "13"
+
+const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")

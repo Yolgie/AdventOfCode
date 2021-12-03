@@ -6,11 +6,14 @@ import at.cnoize.contest.util.sum
 import at.cnoize.contest.util.takeWhileInclusive
 import java.math.BigInteger
 
-//const val INPUT_FILE = "Day09.input.test"
+const val YEAR = 2020
+const val DAY = "09"
+
+//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
 //const val FLOATING_SIZE = 5
 //const val SUM_TARGET = 127L // the answer from the puzzle1
 
-const val INPUT_FILE ="Day09.input"
+const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 const val FLOATING_SIZE = 25
 const val SUM_TARGET = 393911906L // the answer from the puzzle1
 

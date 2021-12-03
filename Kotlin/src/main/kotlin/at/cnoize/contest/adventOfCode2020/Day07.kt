@@ -2,7 +2,11 @@ package at.cnoize.contest.adventOfCode2020.day07
 
 import at.cnoize.contest.util.Worker
 
-const val INPUT_FILE = "Day07.input"
+const val YEAR = 2020
+const val DAY = "07"
+
+const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 val SHINY_GOLD_BAG = Bag("shiny gold")
 val RULE_REGEX = """^(?<bag>.+?) bags contain (?<content>.+?)$""".toRegex()

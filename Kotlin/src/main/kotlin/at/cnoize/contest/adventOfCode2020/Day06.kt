@@ -4,8 +4,11 @@ import at.cnoize.contest.util.Worker
 import at.cnoize.contest.util.splitOnEmptyLine
 import at.cnoize.contest.util.splitOnNewLine
 
-//const val INPUT_FILE = "Day06.input.test"
-const val INPUT_FILE = "Day06.input"
+const val YEAR = 2020
+const val DAY = "06"
+
+const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFileAsSingleString(INPUT_FILE, title = "Answer Puzzle 1: \n")
