@@ -1,15 +1,18 @@
 package at.cnoize.adventOfCode2019.day03
 
-import Worker
-import runOnInputFile
+import at.cnoize.contest.util.Worker
 import kotlin.math.abs
 import kotlin.math.max
 
-const val INPUT_FILE = "Day03.input"
+const val YEAR = 2019
+const val DAY = "03"
+
+//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    runOnInputFile(INPUT_FILE, workerPuzzle1)
-    //runOnInputFile(INPUT_FILE, workerPuzzle2)
+    workerPuzzle1.withInputFile(INPUT_FILE)
+    workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
 val workerPuzzle1 = Worker { input ->

@@ -1,14 +1,16 @@
 package at.cnoize.adventOfCode2019.day02
 
-import Worker
-import runOnInputFile
-import java.lang.IllegalStateException
+import at.cnoize.contest.util.Worker
 
-const val INPUT_FILE ="Day02.input"
+const val YEAR = 2019
+const val DAY = "02"
+
+//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    runOnInputFile(INPUT_FILE, workerPuzzle1) // 3895705
-    runOnInputFile(INPUT_FILE, workerPuzzle2) // 6417
+    workerPuzzle1.withInputFile(INPUT_FILE)
+    workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
 val workerPuzzle1 = Worker { input ->
