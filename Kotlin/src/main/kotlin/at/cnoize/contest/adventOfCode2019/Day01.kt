@@ -1,13 +1,16 @@
 package at.cnoize.adventOfCode2019.day01
 
-import Worker
-import runOnInputFile
+import at.cnoize.contest.util.Worker
 
-const val INPUT_FILE ="Day01.input"
+const val YEAR = 2019
+const val DAY = "01"
+
+//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    runOnInputFile(INPUT_FILE, workerPuzzle1)
-    runOnInputFile(INPUT_FILE, workerPuzzle2)
+    workerPuzzle1.withInputFile(INPUT_FILE)
+    workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
 val workerPuzzle1 = Worker { input ->
