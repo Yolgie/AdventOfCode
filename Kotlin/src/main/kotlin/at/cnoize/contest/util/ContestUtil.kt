@@ -19,3 +19,15 @@ fun Collection<BigInteger>.sum(): BigInteger =
         this.sumOf { it }
 
 fun <T> Iterable<T>.second(): T = this.drop(1).first()
+
+fun <T> Iterable<Iterable<T>>.transpose(): List<List<T>> {
+        val matrix = this.map(Iterable<T>::toList)
+        val cols = matrix.first().size
+        val transposed = Array(cols) { emptyList<T>().toMutableList() }
+        for (row in this) {
+                for ((j, element) in row.withIndex()) {
+                        transposed[j].add(element)
+                }
+        }
+        return transposed.toList()
+}
