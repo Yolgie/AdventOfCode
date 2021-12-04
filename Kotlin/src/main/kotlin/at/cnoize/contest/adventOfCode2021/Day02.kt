@@ -90,4 +90,3 @@ enum class CommandTypePartTwo(val token: String, val positionTransformer: (posit
 data class PositionPartTwo(val horizontalPosition: Int, val depth: Int, val aim: Int) {
     val result: String = (horizontalPosition * depth).toString()
 }
-
