@@ -31,3 +31,14 @@ fun <T> Iterable<Iterable<T>>.transpose(): List<List<T>> {
         }
         return transposed.toList()
 }
+
+fun <T> Iterable<T>.zipWithNext(count: Int): List<List<T>> {
+        return if (count == 1) {
+                this.zipWithNext().map { pair -> pair.toList() }
+        } else {
+                this.zipWithNext(count-1)
+                        .zip(this.drop(count))
+                        .map { (pair, single) -> pair.toList() + single }
+        }
+}
+
