@@ -1,12 +1,13 @@
 package at.cnoize.contest.adventOfCode2021.day01
 
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.zipWithNext
 
 const val YEAR = 2021
 const val DAY = "01"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
@@ -23,8 +24,7 @@ val workerPuzzle1 = Worker { input ->
 
 val workerPuzzle2 = Worker { input ->
     val depths = input.map { i -> i.toInt() }
-    val increases = depths.zipWithNext().zip(depths.drop(2))
-        .map { (pair, single) -> pair.toList() + single }
+    val increases = depths.zipWithNext(2)
         .map(List<Int>::sum)
         .zipWithNext()
         .count { (first, second) -> first < second }
