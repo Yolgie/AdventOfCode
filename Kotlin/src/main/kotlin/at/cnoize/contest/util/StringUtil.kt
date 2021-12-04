@@ -17,3 +17,7 @@ fun printlnIfNotNull(message: String?) {
         println(message)
     }
 }
+
+fun String.binaryToInt(): Int {
+    return Integer.parseInt(this, 2)
+}
