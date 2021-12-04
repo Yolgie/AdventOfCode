@@ -41,4 +41,3 @@ fun <T> Iterable<T>.zipWithNext(count: Int): List<List<T>> {
                         .map { (pair, single) -> pair.toList() + single }
         }
 }
-
