@@ -30,7 +30,7 @@ val workerPuzzle2 = Worker { input ->
         .toString()
 }
 
-fun MatchResult?.toInput() : Input {
+private fun MatchResult?.toInput() : Input {
     val (from, to, char, password) = this?.destructured
         ?: throw IllegalArgumentException("could not parse match result into input")
     return Input(Rule(from.toInt(), to.toInt(), char.single()), password)
