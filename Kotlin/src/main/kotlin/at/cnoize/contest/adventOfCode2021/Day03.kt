@@ -4,11 +4,11 @@ import at.cnoize.contest.util.Worker
 import at.cnoize.contest.util.binaryToInt
 import at.cnoize.contest.util.transpose
 
-const val YEAR = 2021
-const val DAY = "03"
+private const val YEAR = 2021
+private const val DAY = "03"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     println("Advent of Code $YEAR $DAY")

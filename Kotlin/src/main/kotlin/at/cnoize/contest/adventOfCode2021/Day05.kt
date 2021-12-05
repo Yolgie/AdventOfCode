@@ -4,13 +4,13 @@ import at.cnoize.contest.util.Worker
 import kotlin.math.abs
 import kotlin.math.max
 
-const val YEAR = 2021
-const val DAY = "05"
+private const val YEAR = 2021
+private const val DAY = "05"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
-const val PARSING_REGEX = """^(?<x1>\d+?),(?<y1>\d+?) -> (?<x2>\d+?),(?<y2>\d+?)$"""
+private const val PARSING_REGEX = """^(?<x1>\d+?),(?<y1>\d+?) -> (?<x2>\d+?),(?<y2>\d+?)$"""
 
 fun main() {
     println("Advent of Code $YEAR $DAY")

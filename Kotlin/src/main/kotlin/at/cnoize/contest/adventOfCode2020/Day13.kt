@@ -6,18 +6,18 @@ import at.cnoize.contest.util.second
 import at.cnoize.contest.util.takeWhileInclusive
 import java.math.BigInteger
 
-const val YEAR = 2020
-const val DAY = "13"
+private const val YEAR = 2020
+private const val DAY = "13"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val earliestDeparture = input
             .first()
             .toInt()
@@ -36,16 +36,16 @@ val workerPuzzle1 = Worker { input ->
             ?: throw IllegalStateException("No Bustimes found")
 }
 
-fun getNextBus(departure: Int, busInterval: Int): Int {
+private fun getNextBus(departure: Int, busInterval: Int): Int {
     return ((departure / busInterval) + 1) * busInterval
 }
 
-fun getNextBus(departure: BigInteger, busInterval: BigInteger): BigInteger {
+private fun getNextBus(departure: BigInteger, busInterval: BigInteger): BigInteger {
     return ((departure / busInterval) + BigInteger.ONE) * busInterval
 }
 
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val busTimes = input
             .second()
             .split(',')
@@ -63,7 +63,7 @@ val workerPuzzle2 = Worker { input ->
             .toString()
 }
 
-fun isValidSolution(candidate: BigInteger, busTimes: Map<BigInteger, BigInteger>): Boolean {
+private fun isValidSolution(candidate: BigInteger, busTimes: Map<BigInteger, BigInteger>): Boolean {
     return busTimes
             .asSequence()
             .map { (busPosition, busInterval) -> (candidate + busPosition) % busInterval }

@@ -2,19 +2,19 @@ package at.cnoize.contest.adventOfCode2020.day02
 
 import at.cnoize.contest.util.Worker
 
-const val YEAR = 2020
-const val DAY = "02"
+private const val YEAR = 2020
+private const val DAY = "02"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
-const val REGEX = """^(?<from>\d+?)-(?<to>\d+?) (?<char>\w): (?<password>.*)$"""
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val REGEX = """^(?<from>\d+?)-(?<to>\d+?) (?<char>\w): (?<password>.*)$"""
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)
     workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     input
         .map(REGEX.toRegex()::matchEntire)
         .map(MatchResult?::toInput)
@@ -22,7 +22,7 @@ val workerPuzzle1 = Worker { input ->
         .toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     input
         .map(REGEX.toRegex()::matchEntire)
         .map(MatchResult?::toInput)
@@ -36,12 +36,12 @@ private fun MatchResult?.toInput() : Input {
     return Input(Rule(from.toInt(), to.toInt(), char.single()), password)
 }
 
-data class Input(val rule: Rule, val password: String) {
+private data class Input(val rule: Rule, val password: String) {
     val isValid1 = rule.validate1(password)
     val isValid2 = rule.validate2(password)
 }
 
-data class Rule(val first: Int, val second: Int, val char: Char) {
+private data class Rule(val first: Int, val second: Int, val char: Char) {
     fun validate1(input: String) : Boolean {
         return input.count { it == char } in first..second
     }
