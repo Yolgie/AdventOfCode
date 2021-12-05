@@ -13,11 +13,12 @@ const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 const val PARSING_REGEX = """^(?<x1>\d+?),(?<y1>\d+?) -> (?<x2>\d+?),(?<y2>\d+?)$"""
 
 fun main() {
+    println("Advent of Code $YEAR $DAY")
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     input
         .map(PARSING_REGEX.toRegex()::matchEntire)
         .map(MatchResult?::toLine)
@@ -27,7 +28,7 @@ val workerPuzzle1 = Worker { input ->
         .toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     input
         .map(PARSING_REGEX.toRegex()::matchEntire)
         .map(MatchResult?::toLine)

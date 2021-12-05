@@ -12,14 +12,20 @@ const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
 //const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
+    println("Advent of Code $YEAR $DAY")
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val commands = input
         .map(String::splitOnSpace)
-        .map { (commandString, distanceString) -> CommandPartOne(commandString.toCommandPartOneType(), distanceString.toInt()) }
+        .map { (commandString, distanceString) ->
+            CommandPartOne(
+                commandString.toCommandPartOneType(),
+                distanceString.toInt()
+            )
+        }
 
     commands
         .fold(PositionPartOne(0, 0)) { position, command ->
@@ -31,10 +37,15 @@ val workerPuzzle1 = Worker { input ->
         .result
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val commands = input
         .map(String::splitOnSpace)
-        .map { (commandString, distanceString) -> CommandPartTwo(commandString.toCommandPartTwoType(), distanceString.toInt()) }
+        .map { (commandString, distanceString) ->
+            CommandPartTwo(
+                commandString.toCommandPartTwoType(),
+                distanceString.toInt()
+            )
+        }
 
     commands
         .fold(PositionPartTwo(0, 0, 0)) { position, command ->
@@ -46,9 +57,12 @@ val workerPuzzle2 = Worker { input ->
         .result
 }
 
-data class CommandPartOne(val command: CommandTypePartOne, val distance: Int)
+private data class CommandPartOne(val command: CommandTypePartOne, val distance: Int)
 
-enum class CommandTypePartOne(val token: String, val positionTransformer: (position: PositionPartOne, distance: Int) -> PositionPartOne) {
+private enum class CommandTypePartOne(
+    val token: String,
+    val positionTransformer: (position: PositionPartOne, distance: Int) -> PositionPartOne
+) {
     Forward("forward", { pos, distance -> pos.copy(horizontalPosition = pos.horizontalPosition + distance) }),
     Down("down", { pos, distance -> pos.copy(depth = pos.depth + distance) }),
     Up("up", { pos, distance -> pos.copy(depth = pos.depth - distance) }),
@@ -63,17 +77,22 @@ enum class CommandTypePartOne(val token: String, val positionTransformer: (posit
     }
 }
 
-data class PositionPartOne(val horizontalPosition: Int, val depth: Int) {
+private data class PositionPartOne(val horizontalPosition: Int, val depth: Int) {
     val result: String = (horizontalPosition * depth).toString()
 }
 
-data class CommandPartTwo(val command: CommandTypePartTwo, val distance: Int)
+private data class CommandPartTwo(val command: CommandTypePartTwo, val distance: Int)
 
-enum class CommandTypePartTwo(val token: String, val positionTransformer: (position: PositionPartTwo, distance: Int) -> PositionPartTwo) {
-    Forward("forward", { pos, distance -> pos.copy(
-        horizontalPosition = pos.horizontalPosition + distance,
-        depth = pos.depth + distance * pos.aim
-    ) }),
+private enum class CommandTypePartTwo(
+    val token: String,
+    val positionTransformer: (position: PositionPartTwo, distance: Int) -> PositionPartTwo
+) {
+    Forward("forward", { pos, distance ->
+        pos.copy(
+            horizontalPosition = pos.horizontalPosition + distance,
+            depth = pos.depth + distance * pos.aim
+        )
+    }),
     Down("down", { pos, distance -> pos.copy(aim = pos.aim + distance) }),
     Up("up", { pos, distance -> pos.copy(aim = pos.aim - distance) }),
     ;
@@ -87,6 +106,6 @@ enum class CommandTypePartTwo(val token: String, val positionTransformer: (posit
     }
 }
 
-data class PositionPartTwo(val horizontalPosition: Int, val depth: Int, val aim: Int) {
+private data class PositionPartTwo(val horizontalPosition: Int, val depth: Int, val aim: Int) {
     val result: String = (horizontalPosition * depth).toString()
 }
