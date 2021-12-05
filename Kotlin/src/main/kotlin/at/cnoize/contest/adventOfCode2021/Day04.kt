@@ -9,11 +9,12 @@ const val DAY = "04"
 const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
+    println("Advent of Code $YEAR $DAY")
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val selectedNumbers = input.first().split(",").map { it.toInt() }.iterator()
     val boards = input.drop(1).chunked(5).map { it.toBingoBoard() }
 
@@ -26,7 +27,7 @@ val workerPuzzle1 = Worker { input ->
         .toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val selectedNumbers = input.first().split(",").map { it.toInt() }.iterator()
     val boards = input.drop(1).chunked(5).map { it.toBingoBoard() }
 
@@ -45,7 +46,7 @@ val workerPuzzle2 = Worker { input ->
         .toString()
 }
 
-data class BingoBoard(val values: List<Int>, val lastNumber: Int) {
+private data class BingoBoard(val values: List<Int>, val lastNumber: Int) {
     fun sum(): Int = values.sum()
     fun score(): Int = lastNumber.times(this.sum())
     fun winner(): Boolean {
@@ -64,6 +65,6 @@ data class BingoBoard(val values: List<Int>, val lastNumber: Int) {
     }
 }
 
-fun List<String>.toBingoBoard(): BingoBoard {
+private fun List<String>.toBingoBoard(): BingoBoard {
     return BingoBoard(this.flatMap { it.splitOnSpace().map { it.toInt() } }, 0)
 }
