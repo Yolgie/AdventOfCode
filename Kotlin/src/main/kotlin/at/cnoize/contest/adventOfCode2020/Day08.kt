@@ -6,18 +6,18 @@ import at.cnoize.contest.util.splitOnSpace
 import at.cnoize.contest.util.takeWhileInclusive
 import at.cnoize.contest.util.update
 
-const val YEAR = 2020
-const val DAY = "08"
+private const val YEAR = 2020
+private const val DAY = "08"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val program = input
             .map(String::splitOnSpace)
             .map { it.toList() }
@@ -30,7 +30,7 @@ val workerPuzzle1 = Worker { input ->
             .last().accumulator.toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val program = input
             .map(String::splitOnSpace)
             .map { it.toList() }
@@ -60,7 +60,7 @@ val workerPuzzle2 = Worker { input ->
             .last().accumulator.toString()
 }
 
-data class MachineState(
+private data class MachineState(
         val programm: List<Instruction>,
         val functionPointer: Int = 0,
         val accumulator: Int = 0,
@@ -80,9 +80,9 @@ data class MachineState(
     }
 }
 
-data class Instruction(val operation: Operation, val argument: Int)
+private data class Instruction(val operation: Operation, val argument: Int)
 
-enum class Operation(
+private enum class Operation(
         val token: String,
         val machineAction: (machineState: MachineState, argument: Int) -> MachineState
 ) {

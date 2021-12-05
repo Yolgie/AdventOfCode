@@ -5,18 +5,18 @@ import at.cnoize.contest.util.minAndMax
 import at.cnoize.contest.util.toRange
 import java.math.BigInteger
 
-const val YEAR = 2020
-const val DAY = "05"
+private const val YEAR = 2020
+private const val DAY = "05"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)
     workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     input
         .map(::parseBinaryPositioning)
         .map(Seat::seatId)
@@ -24,7 +24,7 @@ val workerPuzzle1 = Worker { input ->
         .toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val allTakenSeats = input
         .map(::parseBinaryPositioning)
         .map(Seat::seatId)
@@ -35,11 +35,11 @@ val workerPuzzle2 = Worker { input ->
         .toString()
 }
 
-data class Seat(val row: Int, val col: Int) {
+private data class Seat(val row: Int, val col: Int) {
     val seatId = row * 8 + col
 }
 
-fun parseBinaryPositioning(input: String): Seat {
+private fun parseBinaryPositioning(input: String): Seat {
     val rowInput = input.take(7)
     val colInput = input.takeLast(3)
 

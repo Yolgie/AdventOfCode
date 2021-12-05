@@ -2,18 +2,18 @@ package at.cnoize.contest.adventOfCode2020.day04
 
 import at.cnoize.contest.util.Worker
 
-const val YEAR = 2020
-const val DAY = "04"
+private const val YEAR = 2020
+private const val DAY = "04"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFileAsSingleString(INPUT_FILE)
     workerPuzzle2.withInputFileAsSingleString(INPUT_FILE)
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     input.first()
         .split("\n\n")
         .map { it.replace("\n", " ") }
@@ -22,7 +22,7 @@ val workerPuzzle1 = Worker { input ->
         .toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     input.first()
         .split("\n\n")
         .map { it.replace("\n", " ") }
@@ -31,7 +31,7 @@ val workerPuzzle2 = Worker { input ->
         .toString()
 }
 
-fun String.toPassport(): Passport {
+private fun String.toPassport(): Passport {
     return this.trim().split(" ")
         .fold(Passport()) { passport, element ->
             val (field, value) = element.split(":")
@@ -40,7 +40,7 @@ fun String.toPassport(): Passport {
         }
 }
 
-data class Passport(
+private data class Passport(
     val birthYear: BirthYear? = null,
     val issueYear: IssueYear? = null,
     val expirationYear: ExpirationYear? = null,
@@ -56,18 +56,18 @@ data class Passport(
     val isThere = fields.none { it == null }
 }
 
-interface Validated {
+private interface Validated {
     val isValid: Boolean
 }
 
-open class Year(year: Int, validRange: IntRange) : Validated {
+private open class Year(year: Int, validRange: IntRange) : Validated {
     override val isValid = year in validRange
 }
 
-data class BirthYear(val year: Int) : Year(year, validRange = 1920..2002), Validated
-data class IssueYear(val year: Int) : Year(year, validRange = 2010..2020), Validated
-data class ExpirationYear(val year: Int) : Year(year, validRange = 2020..2030), Validated
-data class Height(val height: String) : Validated {
+private data class BirthYear(val year: Int) : Year(year, validRange = 1920..2002), Validated
+private data class IssueYear(val year: Int) : Year(year, validRange = 2010..2020), Validated
+private data class ExpirationYear(val year: Int) : Year(year, validRange = 2020..2030), Validated
+private data class Height(val height: String) : Validated {
     override val isValid: Boolean
         get() {
             val unit = height.takeLast(2)
@@ -80,7 +80,7 @@ data class Height(val height: String) : Validated {
         }
 }
 
-data class HairColor(val color: String) : Validated {
+private data class HairColor(val color: String) : Validated {
     override val isValid = validRegex.matches(color)
 
     companion object {
@@ -88,7 +88,7 @@ data class HairColor(val color: String) : Validated {
     }
 }
 
-data class EyeColor(val color: String) : Validated {
+private data class EyeColor(val color: String) : Validated {
     override val isValid = color in validEyeColors
 
     companion object {
@@ -96,7 +96,7 @@ data class EyeColor(val color: String) : Validated {
     }
 }
 
-data class PassportId(val id: String) : Validated {
+private data class PassportId(val id: String) : Validated {
     override val isValid = validRegex.matches(id)
 
     companion object {
@@ -104,11 +104,11 @@ data class PassportId(val id: String) : Validated {
     }
 }
 
-data class CountryId(val id: String) : Validated {
+private data class CountryId(val id: String) : Validated {
     override val isValid = true
 }
 
-enum class PassportField(
+private enum class PassportField(
     val abbreviation: String,
     val toPassport: (passport: Passport, value: String?) -> Passport,
 ) {

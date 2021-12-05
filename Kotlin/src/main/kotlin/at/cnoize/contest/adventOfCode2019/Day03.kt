@@ -4,18 +4,18 @@ import at.cnoize.contest.util.Worker
 import kotlin.math.abs
 import kotlin.math.max
 
-const val YEAR = 2019
-const val DAY = "03"
+private const val YEAR = 2019
+private const val DAY = "03"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)
     workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val (wireA, wireB) = input.map { wireString ->
         wireString.split(',').map(String::toWirePath)
     }
@@ -43,11 +43,11 @@ private fun getAllCoordinatesForWire(
         .toSet()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     input.toString()
 }
 
-fun getPathCoordinates(start: Coordinate, wire: List<WirePath>): Sequence<Coordinate> {
+private fun getPathCoordinates(start: Coordinate, wire: List<WirePath>): Sequence<Coordinate> {
     return sequence {
         yield(start)
         var current = start
@@ -58,9 +58,9 @@ fun getPathCoordinates(start: Coordinate, wire: List<WirePath>): Sequence<Coordi
     }
 }
 
-data class WirePath(val direction: Direction, val distance: Int)
+private data class WirePath(val direction: Direction, val distance: Int)
 
-fun WirePath.getDestinationCoordinate(start: Coordinate): Coordinate {
+private fun WirePath.getDestinationCoordinate(start: Coordinate): Coordinate {
     return when (direction) {
         Direction.U -> Coordinate(start.x, start.y + distance)
         Direction.D -> Coordinate(start.x, start.y - distance)
@@ -69,11 +69,11 @@ fun WirePath.getDestinationCoordinate(start: Coordinate): Coordinate {
     }
 }
 
-fun String.toWirePath(): WirePath {
+private fun String.toWirePath(): WirePath {
     return WirePath(Direction.valueOf(this.substring(0, 1)), this.substring(1).toInt())
 }
 
-enum class Direction {
+private enum class Direction {
     U, L, D, R;
 
     fun nextClockwise(): Direction {
@@ -90,7 +90,7 @@ enum class Direction {
 }
 
 
-data class Wireboard(override val nodes: Map<Coordinate, WireboardElement> = emptyMap()) :
+private data class Wireboard(override val nodes: Map<Coordinate, WireboardElement> = emptyMap()) :
     EndlessGrid<WireboardElement> {
     override val coordinates: Set<Coordinate> = nodes.keys
 
@@ -131,7 +131,7 @@ data class Wireboard(override val nodes: Map<Coordinate, WireboardElement> = emp
     }
 }
 
-data class WireboardElement(val wireA: Boolean = false, val wireB: Boolean = false) : Node {
+private data class WireboardElement(val wireA: Boolean = false, val wireB: Boolean = false) : Node {
     override val gridChar: Char = when {
         wireA && wireB -> 'X'
         wireA && !wireB -> 'A'
@@ -140,19 +140,19 @@ data class WireboardElement(val wireA: Boolean = false, val wireB: Boolean = fal
     }
 }
 
-data class FrameNode(override val gridChar: Char = '#') : Node
+private data class FrameNode(override val gridChar: Char = '#') : Node
 
-interface EndlessGrid<NODE : Node> {
+private interface EndlessGrid<NODE : Node> {
     val coordinates: Set<Coordinate>
     val nodes: Map<Coordinate, NODE>
     fun visualize()
 }
 
-interface Node {
+private interface Node {
     val gridChar: Char
 }
 
-data class Coordinate(val x: Int, val y: Int) : Comparable<Coordinate> {
+private data class Coordinate(val x: Int, val y: Int) : Comparable<Coordinate> {
     //    val xComparator = compareBy<Coordinate> { it.x }
 //    val yComparator = compareBy<Coordinate> { it.y }
     private val digitLength = max(x.toString().length, y.toString().length)
@@ -213,7 +213,7 @@ data class Coordinate(val x: Int, val y: Int) : Comparable<Coordinate> {
     }
 }
 
-class CoordinateRange(override val start: Coordinate, override val endInclusive: Coordinate) : ClosedRange<Coordinate>,
+private class CoordinateRange(override val start: Coordinate, override val endInclusive: Coordinate) : ClosedRange<Coordinate>,
     Iterable<Coordinate> {
 
     override fun iterator(): Iterator<Coordinate> {
@@ -221,7 +221,7 @@ class CoordinateRange(override val start: Coordinate, override val endInclusive:
     }
 }
 
-class EasyCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
+private class EasyCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
     var next = start
 
     override fun hasNext(): Boolean {
@@ -240,7 +240,7 @@ class EasyCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate
     }
 }
 
-class ReadingDirectionCoordinateIterator(val minimalSquare: MinimalSquare) : Iterator<Coordinate> {
+private class ReadingDirectionCoordinateIterator(val minimalSquare: MinimalSquare) : Iterator<Coordinate> {
     var next = minimalSquare.topLeft
 
     override fun hasNext(): Boolean {
@@ -259,7 +259,7 @@ class ReadingDirectionCoordinateIterator(val minimalSquare: MinimalSquare) : Ite
     }
 }
 
-class SpiralCoordinateSequence(val start: Coordinate, val endInclusive: Coordinate) : Sequence<Coordinate> {
+private class SpiralCoordinateSequence(val start: Coordinate, val endInclusive: Coordinate) : Sequence<Coordinate> {
     override fun iterator(): Iterator<Coordinate> {
         return SpiralCoordinateIterator(start, endInclusive)
     }
@@ -267,7 +267,7 @@ class SpiralCoordinateSequence(val start: Coordinate, val endInclusive: Coordina
 
 // todo write test for this
 // todo use this to find the closest crossing to origin
-class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
+private class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
     var next = start
     var top = start.y
     var bottom = start.y
@@ -302,9 +302,9 @@ class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: Coordina
     }
 }
 
-fun Int.zeroPad(length: Int): String = this.toString().padStart(length, '0')
+private fun Int.zeroPad(length: Int): String = this.toString().padStart(length, '0')
 
-class MinimalSquare(coordinates: Collection<Coordinate>, padding: Int = 0) : Iterable<Coordinate> {
+private class MinimalSquare(coordinates: Collection<Coordinate>, padding: Int = 0) : Iterable<Coordinate> {
     constructor(minimalSquare: MinimalSquare, padding: Int = 0) : this(
         minimalSquare.bottomRight,
         minimalSquare.topLeft,

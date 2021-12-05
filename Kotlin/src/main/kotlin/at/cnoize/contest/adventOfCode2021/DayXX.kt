@@ -2,11 +2,11 @@ package at.cnoize.contest.adventOfCode2021.dayXX
 
 import at.cnoize.contest.util.Worker
 
-const val YEAR = 2021
-const val DAY = "XX"
+private const val YEAR = 2021
+private const val DAY = "XX"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     println("Advent of Code $YEAR $DAY")

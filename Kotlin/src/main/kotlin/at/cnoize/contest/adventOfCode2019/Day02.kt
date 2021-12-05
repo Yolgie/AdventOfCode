@@ -2,18 +2,18 @@ package at.cnoize.adventOfCode2019.day02
 
 import at.cnoize.contest.util.Worker
 
-const val YEAR = 2019
-const val DAY = "02"
+private const val YEAR = 2019
+private const val DAY = "02"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)
     workerPuzzle2.withInputFile(INPUT_FILE)
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val intcode = input.first().split(",").map(String::toInt).toMutableList()
 
     // initialize
@@ -26,7 +26,7 @@ val workerPuzzle1 = Worker { input ->
     return@Worker intcode[0].toString()
 }
 
-fun runIntcodeProgram(intcode: MutableList<Int>): Int {
+private fun runIntcodeProgram(intcode: MutableList<Int>): Int {
     var instructionPointer = 0
     while (intcode[instructionPointer] != OPCODES.STOP.opcode) {
         when (intcode[instructionPointer]) {
@@ -39,7 +39,7 @@ fun runIntcodeProgram(intcode: MutableList<Int>): Int {
     return intcode[0]
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val originalIntcode = input.first().split(",").map(String::toInt)
 
     for (noun in 1..99) {
@@ -57,9 +57,9 @@ val workerPuzzle2 = Worker { input ->
     throw IllegalStateException("no noun/verb combination found")
 }
 
-const val step = 4
+private const val step = 4
 
-enum class OPCODES(val opcode: Int) {
+private enum class OPCODES(val opcode: Int) {
     ADD(1), //add
     MUL(2), // multiply
     STOP(99) //finished
@@ -67,6 +67,6 @@ enum class OPCODES(val opcode: Int) {
 
 }
 
-class instruction(val opcode: OPCODES, parameterCount: Int) {
+private class instruction(val opcode: OPCODES, parameterCount: Int) {
     val totalSize = parameterCount+1
 }

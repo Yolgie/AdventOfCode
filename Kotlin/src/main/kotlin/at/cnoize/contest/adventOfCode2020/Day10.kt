@@ -2,21 +2,21 @@ package at.cnoize.contest.adventOfCode2020.day10
 
 import at.cnoize.contest.util.Worker
 
-const val YEAR = 2020
-const val DAY = "10"
+private const val YEAR = 2020
+private const val DAY = "10"
 
-const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
-const val MIN_JOLT_DIFFERENCE = 1
-const val MAX_JOLT_DIFFERENCE = 3
+private const val MIN_JOLT_DIFFERENCE = 1
+private const val MAX_JOLT_DIFFERENCE = 3
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val adapters = input.map(String::toInt)
     val device = adapters.maxOrNull()?.plus(MAX_JOLT_DIFFERENCE)
             ?: throw IllegalArgumentException("No adapters provided")
@@ -29,7 +29,7 @@ val workerPuzzle1 = Worker { input ->
     else throw IllegalStateException("Required differences are not found in the input")
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val adapters = input.map(String::toInt)
     val device = adapters.maxOrNull()?.plus(MAX_JOLT_DIFFERENCE)
             ?: throw IllegalArgumentException("No adapters provided")
@@ -43,7 +43,7 @@ val workerPuzzle2 = Worker { input ->
     countValidArrangements(completeList, candidatesForRemoval).plus(1).toString()
 }
 
-fun countValidArrangements(completeList: List<Int>, candidatesForRemoval: List<Int>): Int {
+private fun countValidArrangements(completeList: List<Int>, candidatesForRemoval: List<Int>): Int {
     if (candidatesForRemoval.isEmpty()) return 0
 
     val currentCandidate = candidatesForRemoval.first()
@@ -59,7 +59,7 @@ fun countValidArrangements(completeList: List<Int>, candidatesForRemoval: List<I
     }
 }
 
-fun isValid(adapters: List<Int>): Boolean {
+private fun isValid(adapters: List<Int>): Boolean {
     return adapters
             .sorted()
             .zipWithNext()

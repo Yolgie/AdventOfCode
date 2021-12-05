@@ -6,23 +6,23 @@ import at.cnoize.contest.util.sum
 import at.cnoize.contest.util.takeWhileInclusive
 import java.math.BigInteger
 
-const val YEAR = 2020
-const val DAY = "09"
+private const val YEAR = 2020
+private const val DAY = "09"
 
-//const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-//const val FLOATING_SIZE = 5
-//const val SUM_TARGET = 127L // the answer from the puzzle1
+//private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
+//private const val FLOATING_SIZE = 5
+//private const val SUM_TARGET = 127L // the answer from the puzzle1
 
-const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
-const val FLOATING_SIZE = 25
-const val SUM_TARGET = 393911906L // the answer from the puzzle1
+private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val FLOATING_SIZE = 25
+private const val SUM_TARGET = 393911906L // the answer from the puzzle1
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
     workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
 }
 
-val workerPuzzle1 = Worker { input ->
+private val workerPuzzle1 = Worker { input ->
     val cypher = input.map(String::toBigInteger)
 
     sequence {
@@ -37,7 +37,7 @@ val workerPuzzle1 = Worker { input ->
             .first.toString()
 }
 
-val workerPuzzle2 = Worker { input ->
+private val workerPuzzle2 = Worker { input ->
     val cypher = input.map(String::toBigInteger)
 
     cypher.forEachIndexed { indexStart, _ ->
@@ -54,7 +54,7 @@ val workerPuzzle2 = Worker { input ->
     throw IllegalStateException("No solution found")
 }
 
-fun List<BigInteger>.containsSum(sum: BigInteger): Boolean {
+private fun List<BigInteger>.containsSum(sum: BigInteger): Boolean {
     this.forEachIndexed { index, first ->
         this.drop(index+1).forEach { second ->
             if (first + second == sum) {
