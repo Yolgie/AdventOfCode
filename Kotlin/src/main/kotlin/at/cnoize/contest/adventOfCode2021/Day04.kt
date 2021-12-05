@@ -16,7 +16,7 @@ fun main() {
 
 private val workerPuzzle1 = Worker { input ->
     val selectedNumbers = input.first().split(",").map { it.toInt() }.iterator()
-    val boards = input.drop(1).chunked(5).map { it.toBingoBoard() }
+    val boards = input.drop(1).chunked(BingoBoard.size).map { it.toBingoBoard() }
 
     generateSequence(boards) { remainingBoards ->
         val nextNumber = selectedNumbers.next()
@@ -29,7 +29,7 @@ private val workerPuzzle1 = Worker { input ->
 
 private val workerPuzzle2 = Worker { input ->
     val selectedNumbers = input.first().split(",").map { it.toInt() }.iterator()
-    val boards = input.drop(1).chunked(5).map { it.toBingoBoard() }
+    val boards = input.drop(1).chunked(BingoBoard.size).map { it.toBingoBoard() }
 
     generateSequence(boards) { remainingBoards ->
         val nextNumber = selectedNumbers.next()
@@ -50,8 +50,8 @@ private data class BingoBoard(val values: List<Int>, val lastNumber: Int) {
     fun sum(): Int = values.sum()
     fun score(): Int = lastNumber.times(this.sum())
     fun winner(): Boolean {
-        val rows = values.chunked(5)
-        val cols = values.withIndex().groupBy { it.index % 5 }.map { it.value.map { it.value } }
+        val rows = values.chunked(size)
+        val cols = values.withIndex().groupBy { it.index % size }.map { it.value.map { it.value } }
         return rows.map { it.sum() }.any { it == 0 }
                 || cols.map { it.sum() }.any { it == 0 }
     }
