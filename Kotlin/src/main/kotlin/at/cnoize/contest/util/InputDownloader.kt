@@ -13,7 +13,7 @@ fun main() {
     val request = Request.Builder()
         .addHeader(
             "Cookie",
-            "session=***REMOVED***"
+            "session=<add-session-cookie-here>"
         )
         .url(URL)
         .get()
