@@ -5,7 +5,7 @@ import okhttp3.Request
 import java.io.File
 import java.time.LocalDate
 
-val YEAR = 2021
+val YEAR = LocalDate.now().year
 val DAY = LocalDate.now().dayOfMonth
 val URL = "https://adventofcode.com/$YEAR/day/$DAY/input"
 

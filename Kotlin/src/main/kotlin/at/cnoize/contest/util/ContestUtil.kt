@@ -2,7 +2,7 @@ package at.cnoize.contest.util
 
 import java.math.BigInteger
 
-fun <RETURN_TYPE> String.asResource(work: (String) -> RETURN_TYPE): RETURN_TYPE {
+inline fun <RETURN_TYPE> String.asResource(work: (String) -> RETURN_TYPE): RETURN_TYPE {
     return Thread.currentThread().contextClassLoader
         .getResource(this)
         ?.readText()
@@ -23,6 +23,12 @@ fun <T> Iterable<T>.second(): T = this.drop(1).first()
 fun <T> Iterable<T>.only(): T {
     val list = this.toList()
     require(list.size == 1) { "Does not contain only one element" }
+    return list.first()
+}
+
+inline fun <T> Iterable<T>.only(predicate: (T) -> Boolean) : T {
+    val list = this.filter(predicate)
+    require(list.size ==  1) { "Does not contain only one element" }
     return list.first()
 }
 
@@ -49,3 +55,7 @@ fun <T> Iterable<T>.zipWithNext(count: Int): List<List<T>> {
 }
 
 operator fun <T> ((T) -> Boolean).not() = { e: T -> !this(e) }
+
+fun List<Int?>.joinToInt() : Int = this.joinToString("").toInt()
+
+fun <K,V> Map<K,V>.swapKeysAndValues() : Map<V,K> = this.entries.associate { (key, value) -> value to key }

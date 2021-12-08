@@ -12,12 +12,17 @@ fun String.splitOnSpace(): List<String> =
         this.split(" ")
                 .filterNot(String::isNullOrEmpty)
 
+@Suppress("unused")
 fun printlnIfNotNull(message: String?) {
     if (!message.isNullOrBlank()) {
         println(message)
     }
 }
 
-fun String.binaryToInt(): Int {
-    return Integer.parseInt(this, 2)
-}
+fun String.binaryToInt(): Int = Integer.parseInt(this, 2)
+
+fun String.sorted(): String = this.toList().sorted().joinToString("")
+
+fun String.containsAll(other: String): Boolean = other.all { this.contains(it) }
+
+fun String.removeAll(other: String): String = this.filterNot(other::contains)
