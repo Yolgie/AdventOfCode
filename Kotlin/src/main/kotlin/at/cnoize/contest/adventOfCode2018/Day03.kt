@@ -1,4 +1,4 @@
-data class Claim(val id: Int, val distanceFromTopLeft: Coordinate, val size: Coordinate) {
+private data class Claim(val id: Int, val distanceFromTopLeft: Coordinate, val size: Coordinate) {
     val coordinates: List<Coordinate>
         get() {
             val coordinates = mutableListOf<Coordinate>()
@@ -11,7 +11,7 @@ data class Claim(val id: Int, val distanceFromTopLeft: Coordinate, val size: Coo
         }
 }
 
-data class Coordinate(val x: Int, val y: Int) {
+private data class Coordinate(val x: Int, val y: Int) {
     constructor(coordinateValues: List<Int>) : this(coordinateValues[0], coordinateValues[1])
 
     fun add(other: Coordinate): Coordinate {
@@ -23,9 +23,9 @@ data class Coordinate(val x: Int, val y: Int) {
     }
 }
 
-data class GridEntry(val claims: MutableList<Claim> = mutableListOf())
+private data class GridEntry(val claims: MutableList<Claim> = mutableListOf())
 
-class ClaimParser {
+private class ClaimParser {
     companion object {
         val regex = Regex("""^#([\d]+?) @ ([\d]+?),([\d]+?): ([\d]+?)x([\d]+?)$""")
 

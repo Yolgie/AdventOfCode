@@ -1,11 +1,11 @@
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-data class GuardLogEntry(val id: Int?, val timestamp: LocalDateTime, val action: Action) {
+private data class GuardLogEntry(val id: Int?, val timestamp: LocalDateTime, val action: Action) {
     constructor(id: Int, logEntry: GuardLogEntry) : this(id, logEntry.timestamp, logEntry.action)
 }
 
-data class Guard(val id: Int, val entrys: List<GuardLogEntry>) {
+private data class Guard(val id: Int, val entrys: List<GuardLogEntry>) {
     val sleepRanges: List<IntRange> = entrys
         .filter { it.action != Action.START }
         .zipWithNext()
@@ -28,13 +28,13 @@ data class Guard(val id: Int, val entrys: List<GuardLogEntry>) {
     }
 }
 
-enum class Action(val regex: Regex) {
+private enum class Action(val regex: Regex) {
     START(Regex("""begins shift""")),
     FALL_ASLEEP(Regex("""falls asleep""")),
     WAKE_UP(Regex("""wakes up"""))
 }
 
-class GuardLogParser {
+private class GuardLogParser {
     companion object {
         val guardIdRegex = Regex("""#([\d]+?) """)
         val timestampRegex = Regex("""\[(.*)]""")

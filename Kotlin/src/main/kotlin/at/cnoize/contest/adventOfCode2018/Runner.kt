@@ -1,8 +1,8 @@
 import java.io.File
 import kotlin.system.measureTimeMillis
 
-val INPUT_DIR = "input/"
-val OUTPUT_DIR = "output/"
+val INPUT_DIR = "adventOfCode2018/"
+val OUTPUT_DIR = "out/"
 
 fun main(args: Array<String>) {
     val timeElapsed = measureTimeMillis {
@@ -12,8 +12,7 @@ fun main(args: Array<String>) {
 }
 
 fun <T> run(puzzle: Puzzle<T>) {
-    val inputFile: File = getInputFile(puzzle.day)
-    val input: List<String> = inputFile.readLines()
+    val input: List<String> = getInput(puzzle.day)
     val output: List<String> = puzzle.solveInRunner(input)
     val outputFile: File = getOutputFile(puzzle.day, puzzle.part)
     val outputAsText = output.joinToString("/n")
@@ -21,8 +20,15 @@ fun <T> run(puzzle: Puzzle<T>) {
     System.out.print(outputAsText)
 }
 
-private fun getInputFile(day: String): File {
-    return File("$INPUT_DIR/day$day.input")
+private fun getInput(day: String): List<String> {
+    val url = "$INPUT_DIR/day$day.input"
+    return Thread.currentThread().contextClassLoader
+        .getResource(url)
+        ?.readText()
+        ?.split('\n')
+        ?.map(String::trim)
+        ?.filterNot(String::isBlank)
+        ?: throw IllegalArgumentException("Resource not found: $url")
 }
 
 private fun getOutputFile(day: String, part: Int, count: Int = 1): File {
