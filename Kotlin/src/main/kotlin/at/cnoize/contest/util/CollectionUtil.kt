@@ -7,6 +7,17 @@ import java.math.BigInteger
 fun <T> Iterable<T>.update(index: Int, element: T) =
     take(index) + element + drop(index + 1)
 
+/** updates the map by creating and returning a modified copy, setting to null removes the value from the map */
+fun <K : Any, V : Any> Map<K, V>.update(key: K, value: V?): Map<K, V> {
+    val newMap = this.toMutableMap()
+    if (value == null) {
+        newMap.remove(key)
+    } else {
+        newMap[key] = value
+    }
+    return newMap
+}
+
 fun Collection<BigInteger>.sum(): BigInteger =
     this.sumOf { it }
 

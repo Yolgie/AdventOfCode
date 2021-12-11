@@ -1,14 +1,15 @@
 package at.cnoize.adventOfCode2019.day03
 
+import at.cnoize.contest.util.Coordinate
+import at.cnoize.contest.util.Direction
 import at.cnoize.contest.util.Worker
-import kotlin.math.abs
 import kotlin.math.max
 
 private const val YEAR = 2019
 private const val DAY = "03"
 
 //private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
-private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
+private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     workerPuzzle1.withInputFile(INPUT_FILE)
@@ -62,33 +63,23 @@ private data class WirePath(val direction: Direction, val distance: Int)
 
 private fun WirePath.getDestinationCoordinate(start: Coordinate): Coordinate {
     return when (direction) {
-        Direction.U -> Coordinate(start.x, start.y + distance)
-        Direction.D -> Coordinate(start.x, start.y - distance)
-        Direction.L -> Coordinate(start.x - distance, start.y)
-        Direction.R -> Coordinate(start.x + distance, start.y)
+        Direction.UP -> Coordinate(start.x, start.y + distance)
+        Direction.DOWN -> Coordinate(start.x, start.y - distance)
+        Direction.LEFT -> Coordinate(start.x - distance, start.y)
+        Direction.RIGHT -> Coordinate(start.x + distance, start.y)
     }
 }
 
 private fun String.toWirePath(): WirePath {
-    return WirePath(Direction.valueOf(this.substring(0, 1)), this.substring(1).toInt())
+    return WirePath(directionMap[this.substring(0, 1)]!!, this.substring(1).toInt())
 }
 
-private enum class Direction {
-    U, L, D, R;
-
-    fun nextClockwise(): Direction {
-        return valueArray[(this.ordinal + valueArray.size - 1) % valueArray.size]
-    }
-
-    fun nextCounterClockwise(): Direction {
-        return valueArray[(this.ordinal + 1) % valueArray.size]
-    }
-
-    companion object {
-        private val valueArray = values()
-    }
-}
-
+private val directionMap = mapOf(
+    "U" to Direction.UP,
+    "L" to Direction.LEFT,
+    "D" to Direction.DOWN,
+    "R" to Direction.RIGHT
+)
 
 private data class Wireboard(override val nodes: Map<Coordinate, WireboardElement> = emptyMap()) :
     EndlessGrid<WireboardElement> {
@@ -152,94 +143,6 @@ private interface Node {
     val gridChar: Char
 }
 
-private data class Coordinate(val x: Int, val y: Int) : Comparable<Coordinate> {
-    //    val xComparator = compareBy<Coordinate> { it.x }
-//    val yComparator = compareBy<Coordinate> { it.y }
-    private val digitLength = max(x.toString().length, y.toString().length)
-
-    fun getManhattanDistance(other: Coordinate): Int {
-        return abs(this.x - other.x) + abs(this.y - other.y)
-    }
-
-    override fun compareTo(other: Coordinate): Int {
-        val comparator = compareBy<Coordinate> { it.x }.thenBy { it.y }
-        return comparator.compare(this, other)
-        //return origin.getManhattanDistance(this).compareTo(origin.getManhattanDistance(other))
-    }
-
-    operator fun rangeTo(that: Coordinate) = CoordinateRange(this, that)
-
-    override fun toString(): String {
-        return """[${x.zeroPad(digitLength)},${y.zeroPad(digitLength)}]"""
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Coordinate
-
-        if (x != other.x) return false
-        if (y != other.y) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = x
-        result = 31 * result + y
-        return result
-    }
-
-    fun step(direction: Direction, distance: Int = 1): Coordinate {
-        return when (direction) {
-            Direction.U -> Coordinate(x, y + distance)
-            Direction.D -> Coordinate(x, y - distance)
-            Direction.L -> Coordinate(x - distance, y)
-            Direction.R -> Coordinate(x + distance, y)
-        }
-
-    }
-
-    companion object {
-        private val regex = Regex("""\[(-?\d*?),(-?\d*?)]""")
-
-        fun String.toCoordinate(): Coordinate {
-            if (!this.matches(regex))
-                throw IllegalArgumentException("Could not parse $this into a coordinate")
-            val (x, y) = regex.find(this)!!.destructured
-            return Coordinate(x.toInt(), y.toInt())
-        }
-    }
-}
-
-private class CoordinateRange(override val start: Coordinate, override val endInclusive: Coordinate) : ClosedRange<Coordinate>,
-    Iterable<Coordinate> {
-
-    override fun iterator(): Iterator<Coordinate> {
-        return EasyCoordinateIterator(start, endInclusive)
-    }
-}
-
-private class EasyCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
-    var next = start
-
-    override fun hasNext(): Boolean {
-        return next <= endInclusive
-    }
-
-    override fun next(): Coordinate {
-        if (!hasNext())
-            throw NoSuchElementException()
-        val current = next
-        next = when {
-            next.y < endInclusive.y -> Coordinate(next.x, next.y + 1)
-            else -> Coordinate(next.x + 1, start.y)
-        }
-        return current
-    }
-}
-
 private class ReadingDirectionCoordinateIterator(val minimalSquare: MinimalSquare) : Iterator<Coordinate> {
     var next = minimalSquare.topLeft
 
@@ -273,7 +176,7 @@ private class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: 
     var bottom = start.y
     var left = start.x
     var right = start.x
-    var direction = Direction.R
+    var direction = Direction.RIGHT
     var hasNext = true
 
     override fun hasNext(): Boolean {
@@ -286,7 +189,7 @@ private class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: 
 
         val current = next
         if (current == endInclusive) {
-            hasNext = false;
+            hasNext = false
         }
         if (current.x !in left..right || current.y !in bottom..top) {
             direction = direction.nextClockwise()
@@ -301,8 +204,6 @@ private class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: 
         return current
     }
 }
-
-private fun Int.zeroPad(length: Int): String = this.toString().padStart(length, '0')
 
 private class MinimalSquare(coordinates: Collection<Coordinate>, padding: Int = 0) : Iterable<Coordinate> {
     constructor(minimalSquare: MinimalSquare, padding: Int = 0) : this(
