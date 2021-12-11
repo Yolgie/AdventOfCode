@@ -1,6 +1,7 @@
 package at.cnoize.contest.adventOfCode2021.day09
 
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.multiply
 
 private typealias Coordinate = Pair<Int, Int>
 private typealias Grid = List<List<Int>>
@@ -39,7 +40,7 @@ private val workerPuzzle2 = Worker { input ->
         .map { it.size }
         .sortedDescending()
         .take(3)
-        .reduce { acc, i -> acc*i }
+        .multiply()
         .toString()
 }
 

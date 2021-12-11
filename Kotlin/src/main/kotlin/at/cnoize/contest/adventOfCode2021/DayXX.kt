@@ -8,6 +8,7 @@ private const val DAY = "XX"
 private const val INPUT_FILE_TEST = "adventOfCode$YEAR/Day$DAY.input.test"
 private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
+@Suppress("DuplicatedCode")
 fun main() {
     println("Advent of Code $YEAR $DAY")
     workerPuzzle1.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 1: \n")
