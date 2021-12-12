@@ -12,8 +12,8 @@ private const val DAY = "03"
 private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    workerPuzzle1.withInputFile(INPUT_FILE)
-    workerPuzzle2.withInputFile(INPUT_FILE)
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE)
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE)
 }
 
 private val workerPuzzle1 = Worker { input ->
@@ -168,8 +168,8 @@ private class SpiralCoordinateSequence(val start: Coordinate, val endInclusive: 
     }
 }
 
-// todo write test for this
-// todo use this to find the closest crossing to origin
+// to do write test for this
+// to do use this to find the closest crossing to origin
 private class SpiralCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
     var next = start
     var top = start.y

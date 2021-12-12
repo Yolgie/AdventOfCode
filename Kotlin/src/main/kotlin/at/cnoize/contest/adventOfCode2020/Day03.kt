@@ -9,8 +9,8 @@ private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
 //private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    workerPuzzle1.withInputFile(INPUT_FILE)
-    workerPuzzle2.withInputFile(INPUT_FILE)
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE)
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE)
 }
 
 private val workerPuzzle1 = Worker { input ->

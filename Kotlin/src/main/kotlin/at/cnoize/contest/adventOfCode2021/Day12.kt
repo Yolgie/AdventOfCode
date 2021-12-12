@@ -14,14 +14,16 @@ private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 @Suppress("DuplicatedCode")
 fun main() {
     println("Advent of Code $YEAR $DAY")
-    workerPuzzle1.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 1: \n")
-    workerPuzzle1.withInputFile(INPUT_FILE_TEST_MEDIUM, title = "")
-    workerPuzzle1.withInputFile(INPUT_FILE_TEST_LARGE, title = "")
-    workerPuzzle1.withInputFile(INPUT_FILE, title = "")
-    workerPuzzle2.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 2: \n")
-    workerPuzzle2.withInputFile(INPUT_FILE_TEST_MEDIUM, title = "")
-    workerPuzzle2.withInputFile(INPUT_FILE_TEST_LARGE, title = "")
-    workerPuzzle2.withInputFile(INPUT_FILE, title = "")
+    println("Puzzle 1:")
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Test"))
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE_TEST_MEDIUM, WorkerOptions(title = "TMed"))
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE_TEST_LARGE, WorkerOptions(title = "TLrg"))
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Full"))
+    println("Puzzle 2:")
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Test"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE_TEST_MEDIUM, WorkerOptions(title = "TMed"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE_TEST_LARGE, WorkerOptions(title = "TLrg"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Full"))
 }
 
 private val workerPuzzle1 = Worker { input ->

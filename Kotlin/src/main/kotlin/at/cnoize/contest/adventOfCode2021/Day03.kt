@@ -1,6 +1,7 @@
 package at.cnoize.contest.adventOfCode2021.day03
 
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.WorkerOptions
 import at.cnoize.contest.util.binaryToInt
 import at.cnoize.contest.util.transpose
 
@@ -12,8 +13,8 @@ private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
     println("Advent of Code $YEAR $DAY")
-    workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
-    workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 1: \n"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 2: \n"))
 }
 
 private val workerPuzzle1 = Worker { input ->

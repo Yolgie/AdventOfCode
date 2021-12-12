@@ -12,10 +12,10 @@ private const val PARSING_REGEX = """^(?<signalPatterns>.+)\|(?<outputValues>.+)
 
 fun main() {
     println("Advent of Code $YEAR $DAY")
-    workerPuzzle1.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 1: \n")
-    workerPuzzle1.withInputFile(INPUT_FILE, title = "")
-    workerPuzzle2.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 2: \n")
-    workerPuzzle2.withInputFile(INPUT_FILE, title = "")
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Answer Puzzle 1: \n"))
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE)
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Answer Puzzle 2: \n"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE)
 }
 
 private val workerPuzzle1 = Worker { input ->
@@ -57,11 +57,11 @@ private data class Input(val signalPatterns: List<String>, val outputValues: Lis
 
         digits[3] = length5digits.only { it.containsAll(digits[1]!!) }
         digits[6] = length6digits.only { !it.containsAll(digits[1]!!) }
-        digits[9] = (length6digits-digits[6]!!).only { it.containsAll(digits[4]!!) }
-        digits[0] = (length6digits-digits[6]!!-digits[9]!!).only()
+        digits[9] = (length6digits - digits[6]!!).only { it.containsAll(digits[4]!!) }
+        digits[0] = (length6digits - digits[6]!! - digits[9]!!).only()
         val segmentE = digits[8]!!.removeAll(digits[9]!!).toList().only()
         digits[2] = length5digits.only { it.contains(segmentE) }
-        digits[5] = (length5digits-digits[3]!!-digits[2]!!).only()
+        digits[5] = (length5digits - digits[3]!! - digits[2]!!).only()
 
         val digitMap = digits.swapKeysAndValues()
 

@@ -9,8 +9,8 @@ private const val DAY = "02"
 private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    workerPuzzle1.withInputFile(INPUT_FILE)
-    workerPuzzle2.withInputFile(INPUT_FILE)
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE)
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE)
 }
 
 private val workerPuzzle1 = Worker { input ->
@@ -67,6 +67,6 @@ private enum class OPCODES(val opcode: Int) {
 
 }
 
-private class instruction(val opcode: OPCODES, parameterCount: Int) {
+private class Instruction(val opcode: OPCODES, parameterCount: Int) {
     val totalSize = parameterCount+1
 }

@@ -1,6 +1,7 @@
 package at.cnoize.contest.adventOfCode2020.day06
 
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.WorkerOptions
 import at.cnoize.contest.util.splitOnEmptyLine
 import at.cnoize.contest.util.splitOnNewLine
 
@@ -11,15 +12,15 @@ private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input.test"
 //private const val INPUT_FILE ="adventOfCode$YEAR/Day$DAY.input"
 
 fun main() {
-    workerPuzzle1.withInputFileAsSingleString(INPUT_FILE, title = "Answer Puzzle 1: \n")
-    workerPuzzle2.withInputFileAsSingleString(INPUT_FILE, title = "Answer Puzzle 2: \n")
+    workerPuzzle1.withInputFileAsSingleString(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 1: \n"))
+    workerPuzzle2.withInputFileAsSingleString(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 2: \n"))
 }
 
 private val workerPuzzle1 = Worker { input ->
-  input.first()
+    input.first()
         .splitOnEmptyLine()
         .map(String::parseGroup)
-        .sumBy { group -> group.allAnswers.count }
+        .sumOf { group -> group.allAnswers.count }
         .toString()
 }
 
@@ -27,7 +28,7 @@ private val workerPuzzle2 = Worker { input ->
     input.first()
         .splitOnEmptyLine()
         .map(String::parseGroup)
-        .sumBy { group -> group.commonAnswers.count }
+        .sumOf { group -> group.commonAnswers.count }
         .toString()
 }
 

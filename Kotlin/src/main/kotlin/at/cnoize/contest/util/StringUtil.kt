@@ -6,6 +6,7 @@ fun String.splitOnEmptyLine(): List<String> =
 
 fun String.splitOnNewLine(): List<String> =
     this.split("\n")
+        .map(String::trim)
         .filterNot(String::isNullOrEmpty)
 
 fun String.splitOnSpace(): List<String> =
@@ -18,6 +19,8 @@ fun printlnIfNotNull(message: String?) {
         println(message)
     }
 }
+
+fun Number.zeroPad(length: Int): String = this.toString().padStart(length, '0')
 
 fun String.binaryToInt(): Int = Integer.parseInt(this, 2)
 

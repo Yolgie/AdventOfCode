@@ -1,6 +1,7 @@
 package at.cnoize.contest.adventOfCode2021.day05
 
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.WorkerOptions
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -14,8 +15,8 @@ private const val PARSING_REGEX = """^(?<x1>\d+?),(?<y1>\d+?) -> (?<x2>\d+?),(?<
 
 fun main() {
     println("Advent of Code $YEAR $DAY")
-    workerPuzzle1.withInputFile(INPUT_FILE, title = "Answer Puzzle 1: \n")
-    workerPuzzle2.withInputFile(INPUT_FILE, title = "Answer Puzzle 2: \n")
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 1: \n"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE, WorkerOptions(title = "Answer Puzzle 2: \n"))
 }
 
 private val workerPuzzle1 = Worker { input ->

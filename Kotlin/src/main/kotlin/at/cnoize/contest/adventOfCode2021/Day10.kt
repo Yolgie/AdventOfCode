@@ -2,6 +2,7 @@ package at.cnoize.contest.adventOfCode2021.day10
 
 import at.cnoize.contest.adventOfCode2021.day10.NavigationLine.Companion.toNavigationLine
 import at.cnoize.contest.util.Worker
+import at.cnoize.contest.util.WorkerOptions
 import at.cnoize.contest.util.middle
 import at.cnoize.contest.util.validateNoNegatives
 import java.math.BigInteger
@@ -15,10 +16,10 @@ private const val INPUT_FILE = "adventOfCode$YEAR/Day$DAY.input"
 @Suppress("DuplicatedCode")
 fun main() {
     println("Advent of Code $YEAR $DAY")
-    workerPuzzle1.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 1: \n")
-    workerPuzzle1.withInputFile(INPUT_FILE, title = "")
-    workerPuzzle2.withInputFile(INPUT_FILE_TEST, title = "Answer Puzzle 2: \n")
-    workerPuzzle2.withInputFile(INPUT_FILE, title = "")
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Answer Puzzle 1: \n"))
+    workerPuzzle1.withInputFileAsLines(INPUT_FILE)
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE_TEST, WorkerOptions(title = "Answer Puzzle 2: \n"))
+    workerPuzzle2.withInputFileAsLines(INPUT_FILE)
 }
 
 private val workerPuzzle1 = Worker { input ->

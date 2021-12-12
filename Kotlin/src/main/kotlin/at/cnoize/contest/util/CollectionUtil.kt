@@ -25,6 +25,7 @@ fun <T> Iterable<T>.second(): T = this.drop(1).first()
 
 fun <E> List<E>.middle(): E {
     val middleIndex = this.size / 2
+    if (isEmpty()) throw NoSuchElementException("List is empty.")
     return this[middleIndex]
 }
 
@@ -62,17 +63,19 @@ fun <T> Iterable<T>.zipWithNext(count: Int): List<List<T>> {
     }
 }
 
-fun List<Int?>.joinToInt(): Int = this.joinToString("").toInt()
+fun Iterable<Int?>.joinToInt(): Int = this.joinToString("").toInt()
 
 fun <K, V> Map<K, V>.swapKeysAndValues(): Map<V, K> = this.entries.associate { (key, value) -> value to key }
 
 /** helps to find int overflow situations */
-fun List<Int>.validateNoNegatives(): List<Int> =
+fun Iterable<Int>.validateNoNegatives(): List<Int> =
     this.map { if (it < 0) throw IllegalArgumentException("Contains values <0 : $it") else it }
 
 fun Sequence<Int>.validateNoNegatives(): Sequence<Int> =
     this.map { if (it < 0) throw IllegalArgumentException("Contains values <0 : $it") else it }
 
-fun List<Int>.multiply(): Int = this.reduce { acc, i -> acc * i }
+fun Iterable<Int>.multiply(): Int = this.reduce { acc, i -> acc * i }
 
 fun <T> Iterable<T>.eachCount(): Map<T, Int> = this.groupingBy { it }.eachCount()
+
+fun <T> T.debugPrintln(): T = this.also(::println)
