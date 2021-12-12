@@ -3,7 +3,7 @@ package at.cnoize.contest.util
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
-class ContestUtilTest {
+class CollectionUtilTest {
 
     @Test
     fun testUpdateList() {

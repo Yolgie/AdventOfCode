@@ -74,3 +74,5 @@ fun Sequence<Int>.validateNoNegatives(): Sequence<Int> =
     this.map { if (it < 0) throw IllegalArgumentException("Contains values <0 : $it") else it }
 
 fun List<Int>.multiply(): Int = this.reduce { acc, i -> acc * i }
+
+fun <T> Iterable<T>.eachCount(): Map<T, Int> = this.groupingBy { it }.eachCount()
