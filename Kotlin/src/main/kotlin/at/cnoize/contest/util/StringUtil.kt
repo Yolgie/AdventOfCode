@@ -1,7 +1,8 @@
 package at.cnoize.contest.util
 
 fun String.splitOnEmptyLine(): List<String> =
-    this.split("\n\n")
+    this.removeAll("\r")
+        .split("\n\n")
         .filterNot(String::isNullOrEmpty)
 
 fun String.splitOnNewLine(): List<String> =

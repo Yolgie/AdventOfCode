@@ -2,6 +2,7 @@
 
 package at.cnoize.contest.util
 
+import at.cnoize.contest.util.Coordinate.Companion.toCoordinate
 import at.cnoize.contest.util.Grid.Companion.toGridNodes
 import kotlin.math.abs
 import kotlin.math.max
@@ -12,9 +13,9 @@ interface Grid<NODE> {
         get() = nodes.keys
 
     // dimensions
-    private val xMinAndMax: Pair<Int, Int>
+    val xMinAndMax: Pair<Int, Int>
         get() = coordinates.map { it.x }.minAndMax()
-    private val yMinAndMax: Pair<Int, Int>
+    val yMinAndMax: Pair<Int, Int>
         get() = coordinates.map { it.y }.minAndMax()
     val xSize: Int
         get() = xMinAndMax.abs()
@@ -34,6 +35,46 @@ interface Grid<NODE> {
     // array access
     operator fun get(coordinate: Coordinate) = nodes[coordinate]
     operator fun get(x: Int, y: Int) = nodes[Coordinate(x, y)]
+
+    fun toCollection(blankValue: (Coordinate) -> NODE): List<List<NODE>> {
+        val collection = mutableListOf<List<NODE>>()
+        for (rowIndex in xMinAndMax.toRange()) {
+            val row = mutableListOf<NODE>()
+            for (colIndex in yMinAndMax.toRange()) {
+                val coordinate = Coordinate(rowIndex, colIndex)
+                if (coordinate in nodes) {
+                    row.add(nodes[coordinate]!!)
+                } else {
+                    row.add(blankValue(coordinate))
+                }
+            }
+            collection.add(row.toList())
+        }
+        return collection.toList()
+    }
+
+    fun visualize(
+        direction: Pair<Direction, Direction> = Direction.UP to Direction.RIGHT,
+        valueToChar: (Coordinate, NODE) -> Char = { _, value -> value.toString().first() },
+        blankChar: Char = ' '
+    ) {
+        val horizontalRange =
+            if (direction.contains(Direction.RIGHT)) xMinAndMax.toRange() else xMinAndMax.toRange().reversed()
+        val verticalRange =
+            if (direction.contains(Direction.DOWN)) yMinAndMax.toRange() else yMinAndMax.toRange().reversed()
+        for (y in verticalRange) {
+            for (x in horizontalRange) {
+                val coordinate = Coordinate(x, y)
+                if (coordinate in coordinates) {
+                    print(valueToChar(coordinate, nodes[coordinate]!!))
+                } else {
+                    print(blankChar)
+                }
+                if (x == horizontalRange.last)
+                    println()
+            }
+        }
+    }
 
     companion object {
         fun <NODE> Iterable<Iterable<NODE>>.toGridNodes(): Map<Coordinate, NODE> =
@@ -90,10 +131,13 @@ class IntGrid(override val nodes: Map<Coordinate, Int>) : Grid<Int> {
         )
     }
 
+    fun transpose() = IntGrid(nodes.mapKeys { (coordinate, _) -> coordinate.toPair().swap().toCoordinate() })
+
     companion object {
         // conversion helpers
         fun Iterable<Iterable<Int>>.toGrid() = IntGrid(this.toGridNodes())
         fun Iterable<String>.toIntGrid() = IntGrid(this.map(String::toListOfInt).toGridNodes())
+        fun Map<Coordinate, Int>.toGrid() = IntGrid(this)
     }
 }
 
@@ -130,6 +174,8 @@ data class Coordinate(
             this.step(Direction.DOWN).step(Direction.RIGHT)
         ) else emptySet()
     }
+
+    fun toPair(): Pair<Int, Int> = x to y
 
     override fun toString(): String {
         return """[${x.zeroPad(digitLength)},${y.zeroPad(digitLength)}]"""
@@ -170,6 +216,9 @@ data class Coordinate(
             val (x, y) = regex.find(this)!!.destructured
             return Coordinate(x.toInt(), y.toInt())
         }
+
+        fun List<Int>.toCoordinate(): Coordinate = toPair().toCoordinate()
+        fun Pair<Int, Int>.toCoordinate(): Coordinate = Coordinate(first, second)
     }
 }
 
