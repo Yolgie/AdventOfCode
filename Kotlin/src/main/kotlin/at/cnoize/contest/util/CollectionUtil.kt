@@ -78,4 +78,4 @@ fun Iterable<Int>.multiply(): Int = this.reduce { acc, i -> acc * i }
 
 fun <T> Iterable<T>.eachCount(): Map<T, Int> = this.groupingBy { it }.eachCount()
 
-fun <T> T.debugPrintln(): T = this.also(::println)
+fun <T> T.debugPrintln(prefix: String = ""): T = this.also { println("$prefix$it") }
