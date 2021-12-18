@@ -79,3 +79,11 @@ fun Iterable<Int>.multiply(): Int = this.reduce { acc, i -> acc * i }
 fun <T> Iterable<T>.eachCount(): Map<T, Int> = this.groupingBy { it }.eachCount()
 
 fun <T> T.debugPrintln(prefix: String = ""): T = this.also { println("$prefix$it") }
+
+fun <E> List<Collection<E>>.filterNotEmpty() = this.filterNot(Collection<E>::isEmpty)
+
+fun <K,V> List<Map<K,V>>.filterMapNotEmpty() = this.filterNot(Map<K,V>::isEmpty)
+
+fun <K,V> List<Map<K,V>>.mergeMaps() = this.reduce { acc, next -> acc + next }
+
+fun <K,V> Map<K,List<V>>.flatMapValues() = this.flatMap { it.value }

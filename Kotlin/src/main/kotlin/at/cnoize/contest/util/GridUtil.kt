@@ -6,6 +6,7 @@ import at.cnoize.contest.util.Coordinate.Companion.toCoordinate
 import at.cnoize.contest.util.Grid.Companion.toGridNodes
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 interface Grid<NODE> {
     val nodes: Map<Coordinate, NODE>
@@ -35,6 +36,7 @@ interface Grid<NODE> {
     // array access
     operator fun get(coordinate: Coordinate) = nodes[coordinate]
     operator fun get(x: Int, y: Int) = nodes[Coordinate(x, y)]
+    operator fun contains(coordinate: Coordinate): Boolean = coordinate in nodes
 
     fun toCollection(blankValue: (Coordinate) -> NODE): List<List<NODE>> {
         val collection = mutableListOf<List<NODE>>()
@@ -86,7 +88,7 @@ interface Grid<NODE> {
     }
 }
 
-class IntGrid(override val nodes: Map<Coordinate, Int>) : Grid<Int> {
+class IntGrid(override val nodes: Map<Coordinate, Int> = emptyMap()) : Grid<Int> {
 
     // update functions
     fun addOrUpdate(coordinate: Coordinate, updater: (Int?) -> Int?): IntGrid {
@@ -202,6 +204,9 @@ data class Coordinate(
         return result
     }
 
+    operator fun plus(other: Coordinate): Coordinate = Coordinate(this.x + other.x, this.y + other.y)
+    operator fun minus(other: Coordinate): Coordinate = Coordinate(this.x - other.x, this.y - other.y)
+
     companion object {
         val compareByXThenByY: Comparator<Coordinate> =
             compareBy<Coordinate> { it.x }.thenBy { it.y }
@@ -245,6 +250,10 @@ class CoordinateRange(override val start: Coordinate, override val endInclusive:
         return EasyCoordinateIterator(start, endInclusive)
     }
 }
+
+fun Pair<Coordinate, Coordinate>.toRange() = first..second
+fun Pair<Coordinate, Coordinate>.toRangeInX() = min(first.x, second.x)..max(first.x, second.x)
+fun Pair<Coordinate, Coordinate>.toRangeInY() = min(first.y, second.y)..max(first.y, second.y)
 
 private class EasyCoordinateIterator(val start: Coordinate, val endInclusive: Coordinate) : Iterator<Coordinate> {
     var next = start
