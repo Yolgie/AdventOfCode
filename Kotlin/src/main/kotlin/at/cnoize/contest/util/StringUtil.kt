@@ -32,3 +32,11 @@ fun String.containsAll(other: String): Boolean = other.all { this.contains(it) }
 fun String.removeAll(other: String): String = this.filterNot(other::contains)
 
 fun String.toListOfInt(): List<Int> = map { char -> char.toString().toInt() }
+
+fun Char.repeat(n: Int): String = this.toString().repeat(n)
+
+fun String.center(totalLength: Int, padChar: Char = ' '): String {
+    val padSize = totalLength-this.length
+    val padEnd = padSize / 2
+    return this.padEnd(this.length+padEnd, padChar).padStart(totalLength, padChar)
+}

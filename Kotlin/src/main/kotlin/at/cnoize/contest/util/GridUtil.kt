@@ -57,14 +57,50 @@ interface Grid<NODE> {
 
     fun visualize(
         direction: Pair<Direction, Direction> = Direction.UP to Direction.RIGHT,
+        valueToString: (Coordinate, NODE) -> String = { _, value -> value.toString() },
+        padChar: Char = ' ',
+        separatorChars: Map<Char, String> = mapOf('|' to "|", '-' to "-", '+' to "+"),
+        padExtra: Int = 0
+    ) {
+        val maxValueSize = padExtra + nodes.maxOf { (coordinate, node) ->
+            valueToString(coordinate, node).length
+        }
+        val separatorLine = if (!separatorChars['-'].isNullOrEmpty()) {
+            "${separatorChars['+']}${separatorChars['-']!!.repeat(maxValueSize)}"
+                .repeat(xMinAndMax.swap().subtract() + 1) + separatorChars['+']
+        } else null
+        val horizontalRange = getHorizontalRange(direction.toList())
+        for (y in getVerticalRange(direction.toList())) {
+            if (separatorLine != null) println(separatorLine)
+            for (x in horizontalRange) {
+                val coordinate = Coordinate(x, y)
+                if (coordinate in coordinates) {
+                    print(separatorChars['|'])
+                    print(valueToString(coordinate, nodes[coordinate]!!).center(maxValueSize, padChar))
+                } else {
+                    print(separatorChars['|'])
+                    print(padChar.repeat(maxValueSize))
+                }
+                if (x == horizontalRange.last)
+                    println(separatorChars['|'])
+            }
+        }
+        if (separatorLine != null) println(separatorLine)
+    }
+
+    fun visualizeTight(
+        direction: Pair<Direction, Direction> = Direction.UP to Direction.RIGHT,
         valueToChar: (Coordinate, NODE) -> Char = { _, value -> value.toString().first() },
         blankChar: Char = ' '
     ) {
-        val horizontalRange =
-            if (direction.contains(Direction.RIGHT)) xMinAndMax.toRange() else xMinAndMax.toRange().reversed()
-        val verticalRange =
-            if (direction.contains(Direction.DOWN)) yMinAndMax.toRange() else yMinAndMax.toRange().reversed()
-        for (y in verticalRange) {
+        visualize(
+            direction = direction,
+            valueToString = { coordinate, node -> valueToChar(coordinate, node).toString() },
+            padChar = blankChar,
+            separatorChars = emptyMap()
+        )
+        val horizontalRange = getHorizontalRange(direction.toList())
+        for (y in getVerticalRange(direction.toList())) {
             for (x in horizontalRange) {
                 val coordinate = Coordinate(x, y)
                 if (coordinate in coordinates) {
@@ -77,6 +113,14 @@ interface Grid<NODE> {
             }
         }
     }
+
+    fun getVerticalRange(direction: Direction) = listOf(direction)
+    fun getVerticalRange(direction: Collection<Direction>) =
+        if (direction.contains(Direction.DOWN)) yMinAndMax.toRange() else yMinAndMax.toRange().reversed()
+
+    fun getHorizontalRange(direction: Direction) = listOf(direction)
+    fun getHorizontalRange(direction: Collection<Direction>) =
+        if (direction.contains(Direction.RIGHT)) xMinAndMax.toRange() else xMinAndMax.toRange().reversed()
 
     companion object {
         fun <NODE> Iterable<Iterable<NODE>>.toGridNodes(): Map<Coordinate, NODE> =

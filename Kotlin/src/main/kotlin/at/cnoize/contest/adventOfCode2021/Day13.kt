@@ -39,7 +39,7 @@ private val workerPuzzle2 = Worker { input: Iterable<String> ->
     val (grid, folds) = input.parseToGridAndFolds()
 
     folds.fold(grid, IntGrid::applyFold)
-        .also { it.visualize(
+        .also { it.visualizeTight(
             direction = Direction.DOWN to Direction.RIGHT,
             valueToChar = { _, _ -> '#' }
         ) }
